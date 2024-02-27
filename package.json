@@ -1,5 +1,6 @@
 {
   "name": "valantis-store",
+  "homepage": "https://Heaven-Tonight.github.io/valantis-store",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,6 +11,7 @@
     "bootstrap": "^5.3.3",
     "express": "^4.18.2",
     "formik": "^2.4.5",
+    "gh-pages": "^6.1.1",
     "md5": "^2.3.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.1",
@@ -19,9 +21,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start:proxy": "node server.js",
-    "start:react": "react-scripts start",
-    "start": "concurrently \"npm run start:proxy\" \"npm run start:react\"",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

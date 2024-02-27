@@ -7,7 +7,7 @@ const Nav = () => {
       <Container>
         <Navbar.Brand href="#">
           <img
-            src='/logo.png'
+            src={process.env.PUBLIC_URL + '/logo.png'}
             alt="logo"
           />
         </Navbar.Brand>
