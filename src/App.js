@@ -154,7 +154,7 @@ function App() {
   };
   
   return (
-    <Container fluid>
+    <Container fluid className={loading ? 'disabled-app' : ''}>
       <Nav />
       {filterNames.includes('product') && <Row className="mt-5 mb-3 d-flex justify-content-center">
         <Col lg={7}>
