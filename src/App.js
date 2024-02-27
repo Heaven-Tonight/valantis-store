@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductsPage from "./components/ProductsPage";
 import Nav from './components/Nav';
 import { Container, Col, Row, Button } from "react-bootstrap";
-import {useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ProductSearchFrom from "./components/ProductSearchFrom";
 import FilterDropDown from "./components/FilterDropDown";
 import { fetchByAction } from "./api";
@@ -49,53 +49,66 @@ function App() {
       setLoading(true);
       setIsLastPage(false);
       setIsProductFoundByFilter(true);
-      if (Object.keys(filters).length > 0) {
-        const { start, end } = filteredProductsIdsSlice;
-        try {
-          const result = await fetchByAction('filter', { ...filters }) || [];
-          if (result.length === 0) {
-            setIsProductFoundByFilter(false);
-            return;
-          }
-          const lastPageNumber = result.length;
-          const slice = result.slice(start, end);
-          if (start < lastPageNumber) {
-            const filteredProducts = await fetchByAction('get_items', { ids: slice }) || [];
-            if (filteredProducts.length < 50) {
-              setIsLastPage(true);
+    
+      const makeFilteredRequest = async () => {
+        if (Object.keys(filters).length > 0) {
+          const { start, end } = filteredProductsIdsSlice;
+          let catchError;
+          try {
+            const result = await fetchByAction('filter', { ...filters }) || [];
+            if (result.length === 0) {
+              setIsProductFoundByFilter(false);
+              setLoading(false);
+              return;
             }
-            setProducts(filterProductsById(filteredProducts));
+            const lastPageNumber = result.length;
+            const slice = result.slice(start, end);
+            if (start < lastPageNumber) {
+              const filteredProducts = await fetchByAction('get_items', { ids: slice }) || [];
+              if (filteredProducts.length < 50) {
+                setIsLastPage(true);
+              }
+              setProducts(filterProductsById(filteredProducts));
+            }
+          } catch (error) {
+            catchError = error;
+            console.log('Идентификатор ошибки: ', error.response?.data);
+            console.log('Повторный запрос...');
+            await makeFilteredRequest();
+          } finally {
+            if (!catchError) setLoading(false);
           }
-        } catch(error) {
-          console.log('Идентификатор ошибки: ', error.response?.data);
-          fetchProductsByFilter(filteredProductsIdsSlice);
-        } finally {
+        } else {
           setLoading(false);
         }
-      }
-    }
-  
+      };
+    
+      await makeFilteredRequest();
+    };
     const fetchProducts = async (ids) => {
-      setLoading(true);
-      setIsLastPage(false);
-      setIsProductFoundByFilter(true);
-      const { offset } = ids;
-      if (offset < totalElements) {
+      const makeRequest = async () => {
         try {
           const productIndexes = await fetchByAction('get_ids', ids) || [];
           const products = await fetchByAction('get_items', { ids: productIndexes });
           const productsFilteredById = filterProductsById(products) || [];
           setProducts(productsFilteredById.slice(0, 50));
-        } catch(error) {
-          console.log('Идентификатор ошибки: ', error.response?.data);
-          fetchProducts(productsIdsSlice);
-        } finally {
           setLoading(false);
+        } catch (error) {
+          console.log('Идентификатор ошибки: ', error.response?.data);
+          console.log('Повторный запрос...');
+          await makeRequest();
         }
+      };
+      
+      setIsLastPage(false);
+      setIsProductFoundByFilter(true)
+      setLoading(true);
+      if (ids.offset < totalElements) {
+        await makeRequest();
       } else {
-        return;
+        setLoading(false);
       }
-    }
+    };
     if (Object.keys(filters).length > 0) {
       fetchProductsByFilter(filteredProductsIdsSlice);
     } else {
