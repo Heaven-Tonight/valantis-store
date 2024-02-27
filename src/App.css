@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+.card-hover:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+/*background: linear-gradient(90deg, #e8b7b7, #ffffff);*/
+
+.disabled-card {
+  opacity: 0.5;
+  pointer-events: none;
+  filter: grayscale(100%);
+}
