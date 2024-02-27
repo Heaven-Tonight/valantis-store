@@ -5,7 +5,7 @@ const Nav = () => {
   return (
     <Navbar className="bg-light shadow">
       <Container>
-        <Navbar.Brand href="#">
+        <Navbar.Brand href="/">
           <img
             src={process.env.PUBLIC_URL + '/logo.png'}
             alt="logo"

@@ -18,15 +18,11 @@ export const fetchByAction = async (action, params) => {
   if (params) {
     requestData.params = params;
   }
-  
+
   try {
     const { data: { result } } = await axios.post(BASE_URL, requestData, config);
     return result;
   } catch (error) {
-    if (error.response?.data) {
-      console.log('Идентификатор ошибки: ', error.response?.data)
-    }
-    console.log('FETCHING ERROR', error);
-    // throw error;
+    throw error;
   }
 };

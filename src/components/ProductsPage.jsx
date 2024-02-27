@@ -1,36 +1,20 @@
-import { Col, Row, Button, Spinner } from "react-bootstrap";
-import { ArrowLeft, ArrowRight } from "react-bootstrap-icons";
+import { Col, Row, Spinner } from "react-bootstrap";
 import ProductCard from "./ProductCard";
+import NavigateButtons from "./NavigateButtons";
 
-const ProductsPage = ({ loading, products, handlePrevPage, handleNextPage, currentPage, isLastPage}) => {
+const ProductsPage = ({ loading, products, handlePrevPage, handleNextPage, currentPage, isLastPage, isProductFountByFilter }) => {
   
   return (
     <>
       <Row className="mt-3 mb-3">
-        <Col lg={12} >
-          <div className="d-flex justify-content-center justify-content-sm-end gap-4">
-            <Button
-              className="shadow"
-              variant="danger"
-              type="button"
-              onClick={handlePrevPage}
-              disabled={currentPage === 1 || loading || (Array.isArray(products) && products.length === 0)}
-            >
-              <ArrowLeft className="me-2" />
-              Назад
-            </Button>
-            <Button
-              className="shadow"
-              variant="danger"
-              type="button"
-              onClick={handleNextPage}
-              disabled={isLastPage || loading || products.length === 0}
-            >
-              Вперед
-              <ArrowRight className="ms-2" />
-            </Button>
-          </div>
-        </Col>
+       <NavigateButtons
+         handlePrevPage={handlePrevPage}
+         currentPage={currentPage}
+         loading={loading}
+         isProductFountByFilter={isProductFountByFilter}
+         isLastPage={isLastPage}
+         handleNextPage={handleNextPage}
+       />
       </Row>
       
       {loading && <Row className="mb-3">
@@ -51,30 +35,14 @@ const ProductsPage = ({ loading, products, handlePrevPage, handleNextPage, curre
       </Row>
       
       {Array.isArray(products) && products.length > 0 && <Row className="mt-3 mb-3">
-        <Col lg={12}>
-          <div className="d-flex justify-content-end gap-4">
-            <Button
-              className="shadow"
-              variant="danger"
-              type="button"
-              onClick={handlePrevPage}
-              disabled={currentPage === 1 || loading || (Array.isArray(products) && products.length === 0)}
-            >
-              <ArrowLeft className="me-2" />
-              Назад
-            </Button>
-            <Button
-              className="shadow"
-              variant="danger"
-              type="button"
-              onClick={handleNextPage}
-              disabled={isLastPage || loading || products.length === 0}
-            >
-              Вперед
-              <ArrowRight className="ms-2" />
-            </Button>
-          </div>
-        </Col>
+        <NavigateButtons
+          handlePrevPage={handlePrevPage}
+          currentPage={currentPage}
+          loading={loading}
+          isProductFountByFilter={isProductFountByFilter}
+          isLastPage={isLastPage}
+          handleNextPage={handleNextPage}
+        />
       </Row>}
     </>
   );

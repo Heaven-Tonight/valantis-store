@@ -33,7 +33,6 @@ const ProductSearchFrom = ({ setFilters, setCurrentPage}) => {
       </InputGroup>
     </Form>
   );
-  
 };
 
 export default ProductSearchFrom;

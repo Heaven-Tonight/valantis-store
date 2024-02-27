@@ -2,8 +2,10 @@ import {Button, Dropdown, Form} from "react-bootstrap";
 import useCustomFormik from "../hooks/useCustomFormik";
 import {useState} from "react";
 
-const FilterDropDown = ({ filterName, filters, setFilters, setCurrentPage }) => {
+const FilterDropDown = ({ filterName, filters, setFilters, setCurrentPage, setProductIdsSlice, setFilteredProductIdsSlice }) => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const initialProductsIdsSlice = { offset: 0, limit: 50};
+  const initialFilteredProductsIdsSlice = { start: 0, end: 50};
   
   const formik = useCustomFormik({
     initialValues: { [filterName]: '' },
@@ -11,6 +13,8 @@ const FilterDropDown = ({ filterName, filters, setFilters, setCurrentPage }) => 
       const data = {
         [filterName]: filterName === 'price' ? Number(values[filterName]) : values[filterName],
       }
+      setProductIdsSlice(initialProductsIdsSlice);
+      setFilteredProductIdsSlice(initialFilteredProductsIdsSlice);
       setFilters(data);
       setShowDropdown(false);
       setCurrentPage(1);
