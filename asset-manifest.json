@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/valantis-store/static/css/main.e710e98a.css",
+    "main.js": "/valantis-store/static/js/main.b4d6c911.js",
+    "index.html": "/valantis-store/index.html",
+    "main.e710e98a.css.map": "/valantis-store/static/css/main.e710e98a.css.map",
+    "main.b4d6c911.js.map": "/valantis-store/static/js/main.b4d6c911.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e710e98a.css",
+    "static/js/main.b4d6c911.js"
+  ]
+}
