@@ -1,7 +1,7 @@
 import md5 from "md5";
 import axios from "axios";
 
-const BASE_URL = 'http://api.valantis.store:40000/';
+const BASE_URL = 'https://api.valantis.store:41000/';
 
 const timestamp = new Date().toISOString().split('T')[0].replace(/-/g, '');
 const authHeader = md5(`Valantis_${timestamp}`);
