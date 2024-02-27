@@ -1,6 +1,5 @@
 {
   "name": "valantis-store",
-  "homepage": "https://Heaven-Tonight.github.io/valantis-store",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
