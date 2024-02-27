@@ -14,7 +14,7 @@ const ProductsPage = ({ loading, products, handlePrevPage, handleNextPage, curre
               variant="danger"
               type="button"
               onClick={handlePrevPage}
-              disabled={currentPage === 1 || loading || Array.isArray(products) && products.length === 0}
+              disabled={currentPage === 1 || loading || (Array.isArray(products) && products.length === 0)}
             >
               <ArrowLeft className="me-2" />
               Назад
@@ -58,7 +58,7 @@ const ProductsPage = ({ loading, products, handlePrevPage, handleNextPage, curre
               variant="danger"
               type="button"
               onClick={handlePrevPage}
-              disabled={currentPage === 1 || loading || Array.isArray(products) && products.length === 0}
+              disabled={currentPage === 1 || loading || (Array.isArray(products) && products.length === 0)}
             >
               <ArrowLeft className="me-2" />
               Назад
